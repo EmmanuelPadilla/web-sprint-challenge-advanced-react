@@ -2,6 +2,31 @@ import React, { Component } from "react";
 import axios from "axios";
 
 export default class PlantList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      plants: [],
+    };
+  }
+
+  getPlants = () => {
+    axios
+      .get("http://localhost:3333/plants")
+      // .then((res) => res.json())
+      .then((plants) => {
+        console.log("here should be data", plants);
+        this.setState({
+          plants: plants.data.plantsData,
+        });
+        console.log("are you listening?!");
+      })
+      .catch((error) => console.log("plants not found", error));
+  };
+
+  componentDidMount() {
+    this.getPlants();
+  }
+
   // add state with a property called "plants" - initialize as an empty array
 
   // when the component mounts:
